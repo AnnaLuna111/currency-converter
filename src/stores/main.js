@@ -10,6 +10,8 @@ export const useMainStore = defineStore('main', {
     async fetchRates() {
       try {
         const { data } = await axios.get('https://status.neuralgeneration.com/api/currency');
+        console.log(data);
+        
         this.rates = data;
       } catch (error) {
         console.error("Ошибка при получении курсов валют:", error);

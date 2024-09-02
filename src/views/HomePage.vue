@@ -22,11 +22,8 @@ const currencyRates = computed(() => {
   return currencies.reduce((acc, currency) => {
     if (currency !== base) {
       const rateKey = `${currency.toLowerCase()}-${base.toLowerCase()}`;
-      const inverseRateKey = `${base.toLowerCase()}-${currency.toLowerCase()}`;
 
-      if (rates[inverseRateKey]) {
-        acc[currency] = (1 / rates[inverseRateKey]).toFixed(2);
-      } else if (rates[rateKey]) {
+      if (rates[rateKey]) {
         acc[currency] = rates[rateKey];
       } else {
         acc[currency] = 'Курс не найден';

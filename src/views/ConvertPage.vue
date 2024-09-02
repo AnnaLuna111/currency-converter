@@ -3,7 +3,7 @@
     <h1>Конвертер валют из {{ from }} в {{ to }}</h1>
     <form @submit.prevent>
       <div class="form-group">
-        <select v-model="from">
+        <select v-model="from" @change="updateCurrency">
           <option v-for="currency in currencies" :key="currency" :value="currency">
             {{ currency }}
           </option>
@@ -18,7 +18,7 @@
       </div>
 
       <div class="form-group">
-        <select v-model="to">
+        <select v-model="to" @change="updateCurrency">
           <option v-for="currency in currencies" :key="currency" :value="currency">
             {{ currency }}
           </option>
@@ -61,6 +61,11 @@ const updateExchangeRate = () => {
   const rateKey = `${from.value.toLowerCase()}-${to.value.toLowerCase()}`;
   exchangeRate.value = rates.value[rateKey] || 1; 
 };
+
+const updateCurrency = () => {
+  amountFrom.value = '';
+  amountTo.value = '';
+}
 
 const convert = (direction) => {
   errorMessage.value = '';
