@@ -38,5 +38,3 @@ onMounted(() => {
   store.fetchRates();
 });
 </script>
-
-

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import { fetchCurrencyRates } from '../server/api';
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -9,19 +9,24 @@ export const useMainStore = defineStore('main', {
   actions: {
     async fetchRates() {
       try {
-        const { data } = await axios.get('https://status.neuralgeneration.com/api/currency');
-        console.log(data);
-        
-        this.rates = data;
+        this.rates = await fetchCurrencyRates();
       } catch (error) {
         console.error("Ошибка при получении курсов валют:", error);
       }
     },
+    
     setBaseCurrency(currency) {
       this.baseCurrency = currency;
       this.fetchRates();
+    },
+    
+    startAutoUpdate(interval = 60000) { 
+      setInterval(() => {
+        this.fetchRates();
+      }, interval);
     }
   },
+  
   getters: {
     getBaseCurrency: (state) => state.baseCurrency,
     getRates: (state) => state.rates,

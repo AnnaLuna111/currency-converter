@@ -43,7 +43,7 @@
 
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
-import { useMainStore } from '../stores/main';
+import { useMainStore } from '@/stores/main';
 
 const store = useMainStore();
 const currencies = ['USD', 'EUR', 'RUB'];
@@ -52,7 +52,6 @@ const to = ref('USD');
 const amountFrom = ref('');
 const amountTo = ref('');
 const exchangeRate = ref(0);
-
 const errorMessage = ref('');
 
 const rates = computed(() => store.getRates);
